@@ -77,39 +77,39 @@ void main() {
 
 	//creates a custom point light 
 	//light1
-	PointLights[0].Colour = vec3(1.0f) * 8.0f;
+	PointLights[0].Colour = vec3(2.0f, 2.0f, 1.0f) * 8.0f;
 	PointLights[0].Position = vec3(-18.0f, 2.0f, -8.0f);
 	PointLights[0].Attenuation = 3.0f;
 
-	PointLights[1].Colour = vec3(1.0f, 1.0f, 1.0f) * 5.0f;
+	PointLights[1].Colour = vec3(2.0f, 2.0f, 1.0f) * 5.0f;
 	PointLights[1].Position = vec3(-12.0f, 2.0f, -8.0f);
 	PointLights[1].Attenuation = 3.0f;
 
 	//light2
-	PointLights[2].Colour = vec3(1.0f) * 8.0f;
+	PointLights[2].Colour = vec3(2.0f, 2.0f, 1.0f) * 8.0f;
 	PointLights[2].Position = vec3(-18.0f, 2.0f, 8.0f);
 	PointLights[2].Attenuation = 3.0f;
 
-	PointLights[3].Colour = vec3(1.0f, 1.0f, 1.0f) * 5.0f;
+	PointLights[3].Colour = vec3(2.0f, 2.0f, 1.0f) * 5.0f;
 	PointLights[3].Position = vec3(-12.0f, 2.0f, 8.0f);
 	PointLights[3].Attenuation = 3.0f;
 
 	//light3
-	PointLights[4].Colour = vec3(1.0f) * 8.0f;
+	PointLights[4].Colour = vec3(2.0f, 2.0f, 1.0f) * 8.0f;
 	PointLights[4].Position = vec3(18.0f, 2.0f,-8.0f);
 	PointLights[4].Attenuation = 3.0f;
 
-	PointLights[5].Colour = vec3(1.0f, 1.0f, 1.0f) * 5.0f;
+	PointLights[5].Colour = vec3(2.0f, 2.0f, 1.0f) * 5.0f;
 	PointLights[5].Position = vec3(12.0f, 2.0f,-8.0f);
 	PointLights[5].Attenuation = 3.0f;
 
 	//light4
-	PointLights[6].Colour = vec3(1.0f) * 8.0f;
-	PointLights[6].Position = vec3(18.0f, 2.0f,8.0f);
+	PointLights[6].Colour = vec3(2.0f, 2.0f, 1.0f) * 8.0f;
+	PointLights[6].Position = vec3(18.0f, 2.0f, 8.0f);
 	PointLights[6].Attenuation = 3.0f;
 
-	PointLights[7].Colour = vec3(1.0f, 1.0f, 1.0f) * 5.0f;
-	PointLights[7].Position = vec3(12.0f, 2.0f,8.0f);
+	PointLights[7].Colour = vec3(2.0f, 2.0f, 1.0f) * 5.0f;
+	PointLights[7].Position = vec3(12.0f, 2.0f, 8.0f);
 	PointLights[7].Attenuation = 3.0f;
 	
 	vec3 result = CalculatePointLight(SMat, ViewDir, PointLights[0]);

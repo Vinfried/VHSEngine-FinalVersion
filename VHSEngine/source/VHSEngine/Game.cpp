@@ -76,7 +76,6 @@ void Game::Run()
 			});
 
 		//import custom meshes 
-		Model = Graphics->ImportModel("Game/Models/Primitives/Cube.fbx", TextureShader);
 		Model2 = Graphics->ImportModel("Game/Models/Primitives/Sphere.fbx", TextureShader);
 
 		Floor = Graphics->ImportModel("Game/Models/Primitives/Cube.fbx", TextureShader);
@@ -95,10 +94,11 @@ void Game::Run()
 		CeilingLight3 = Graphics->ImportModel("Game/Models/068_Volica_LED_System/AM152_068_Volica_LED_System.obj", TextureShader);
 		CeilingLight4 = Graphics->ImportModel("Game/Models/068_Volica_LED_System/AM152_068_Volica_LED_System.obj", TextureShader);
 
+		ExitSign = Graphics->ImportModel("Game/Models/ExitSign/Model/Exit.obj", TextureShader);
+
 		Soldier = Graphics->ImportModel("Game/Models/Soldier/Model/Soldier.obj", TextureShader);
 
 		//transform the models and meshes (Scale, Location and Rotation)
-		Model->Transform.Location = Vector3(3.0f, 0.0f, 3.0f);
 		
 		Model2->Transform.Location = Vector3(3.0f, 0.0f, -3.0f);
 		
@@ -140,6 +140,8 @@ void Game::Run()
 		Door->Transform.Rotation = Vector3(90.0f, 0.0f, 180.0f);
 		Door->Transform.Location = Vector3(25.0f,2.7f, -14.3f);
 
+		ExitSign->Transform.Location = Vector3(23.8f, 1.0f, -14.3f);
+
 		Soldier->Transform.Scale = Vector3(0.025f);
 		Soldier->Transform.Location = Vector3(0.0f, -1.5f, 0.0f);
 
@@ -149,7 +151,6 @@ void Game::Run()
 		Ceiling->AddCollisionToModel(Vector3(60.0f, 1.0f, 30.0f));
 		
 		Model2->AddCollisionToModel(Vector3(4.0f));
-		Model->AddCollisionToModel(Vector3(1.5f));
 		
 		Wall->AddCollisionToModel(Vector3(60.0f, 8.0f, 1.3f), Vector3(0.0f, 4.0f, 0.0f));
 		Wall2->AddCollisionToModel(Vector3(60.0f, 8.0f, 1.3f), Vector3(0.0f, 4.0f, 0.0f));
@@ -167,6 +168,7 @@ void Game::Run()
 		TexturePtr TFloor = Graphics->CreateTexture("Game/Textures/StoneBricksBeige015_Flat.jpg");
 		TexturePtr TDoor = Graphics->CreateTexture("Game/Models/Door/Texture/10057_wooden_door_v1_diffuse.jpg");
 		TexturePtr TSoldier = Graphics->CreateTexture("Game/Models/Soldier/Texture/Soldier_Texture.png");
+		TexturePtr TExit = Graphics->CreateTexture("Game/Models/ExitSign/Texture/Exit.png");
 
 		//create a material
 		MaterialPtr MConcrete = make_shared<Material>();
@@ -175,6 +177,7 @@ void Game::Run()
 		MaterialPtr MFloor = make_shared<Material>();
 		MaterialPtr MDoor = make_shared<Material>();
 		MaterialPtr MSoldier = make_shared<Material>();
+		MaterialPtr MExit = make_shared<Material>();
 
 
 		//assign the base colour of the materials using the textures
@@ -184,9 +187,9 @@ void Game::Run()
 		MFloor->BaseColour.TextureV3 = TFloor;
 		MDoor->BaseColour.TextureV3 = TDoor;
 		MSoldier->BaseColour.TextureV3 = TSoldier;
+		MExit->BaseColour.TextureV3 = TExit;
 
-		//apply the material to models and meshes
-		Model->SetMaterialBySlot(0, MConcrete);
+		//apply the material to models and meshesww
 		Model2->SetMaterialBySlot(0, MTech);
 		Wall->SetMaterialBySlot(1, MWall);
 		Wall2->SetMaterialBySlot(1, MWall);
@@ -196,6 +199,7 @@ void Game::Run()
 		Floor->SetMaterialBySlot(0, MWall);
 		Door->SetMaterialBySlot(1, MDoor);
 		Soldier->SetMaterialBySlot(1, MSoldier);
+		ExitSign->SetMaterialBySlot(1, MExit);
 
 
 		//apply lighting
@@ -240,9 +244,6 @@ void Game::Update()
 	bool NotColliding = !CamCol->IsOverLapping(*Wall->GetCollision()) && !CamCol->IsOverLapping(*Wall2->GetCollision()) && !CamCol->IsOverLapping(*Wall3->GetCollision()) && !CamCol->IsOverLapping(*Wall4->GetCollision()) && !CamCol->IsOverLapping(*Floor->GetCollision()) && !CamCol->IsOverLapping(*Ceiling->GetCollision());
 
 	//do movement
-	Model->Transform.Rotation.x += 50.0f * GetFDeltaTime();
-	Model->Transform.Rotation.y += 50.0f * GetFDeltaTime();
-	Model->Transform.Rotation.z += 50.0f * GetFDeltaTime();
 
 	if (Model2 != nullptr) {
 		Model2->Transform.Rotation.x += -50.0f * GetFDeltaTime();
@@ -258,16 +259,19 @@ void Game::Update()
 			
 	}
 
-
 	//do collision stuff
-	if (GameInput->IsMouseButtonDown(MouseButtons::LEFT)) {
-		if (Model2 != nullptr && CamCol->IsOverLapping(*Model2->GetCollision())) {
-			RemoveModelFromGame(Model2);
-		}
-		if (Door != nullptr && CamCol->IsOverLapping(*Door->GetCollision()))
-			SDL_Delay(5000);
+	if (Model2 != nullptr && CamCol->IsOverLapping(*Model2->GetCollision())) {
+		RemoveModelFromGame(Model2);
+	}
+	if (Door != nullptr && CamCol->IsOverLapping(*Door->GetCollision())){
+		cout << "YOU WIN!!!" << endl;
 		GetGameInstance().CloseApp();
 	}
+	//if (CamCol->IsOverLapping(*Soldier->GetCollision())) {
+	//	GetGameInstance().CloseApp();
+	//	cout << "YOU LOSE... Spinning Johnny caught you" << endl;
+	//}
+		
 	
 	//move camera forward
 	if (GameInput->IsKeyDown(SDL_SCANCODE_W)) {

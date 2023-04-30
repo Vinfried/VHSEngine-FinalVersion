@@ -90,7 +90,7 @@ private:
 
 	ModelPtr Soldier;
 
-	bool FaceOpposite = false;
+	ModelPtr ExitSign;
 
 	
 
