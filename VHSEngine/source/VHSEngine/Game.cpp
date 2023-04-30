@@ -267,10 +267,10 @@ void Game::Update()
 		cout << "YOU WIN!!!" << endl;
 		GetGameInstance().CloseApp();
 	}
-	//if (CamCol->IsOverLapping(*Soldier->GetCollision())) {
-	//	GetGameInstance().CloseApp();
-	//	cout << "YOU LOSE... Spinning Johnny caught you" << endl;
-	//}
+	if (CamCol->IsOverLapping(*Soldier->GetCollision())) {
+		GetGameInstance().CloseApp();
+		cout << "YOU LOSE... Spinning Johnny caught you" << endl;
+	}
 		
 	
 	//move camera forward
