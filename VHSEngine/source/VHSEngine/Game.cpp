@@ -264,13 +264,13 @@ void Game::Update()
 		RemoveModelFromGame(Model2);
 	}
 	if (Door != nullptr && CamCol->IsOverLapping(*Door->GetCollision())){
-		cout << "YOU WIN!!!" << endl;
+		cout << "YOU WIN!!!!" << endl;
 		GetGameInstance().CloseApp();
 	}
-	//if (CamCol->IsOverLapping(*Soldier->GetCollision())) {
-	//	GetGameInstance().CloseApp();
-	//	cout << "YOU LOSE... Spinning Johnny caught you" << endl;
-	//}
+	if (CamCol->IsOverLapping(*Soldier->GetCollision())) {
+		GetGameInstance().CloseApp();
+		cout << "YOU LOSE... Spinning Johnny caught you" << endl;
+	}
 		
 	
 	//move camera forward
